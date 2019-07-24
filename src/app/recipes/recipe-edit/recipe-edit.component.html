@@ -1,0 +1,75 @@
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-lg-12 col-xl-12">
+        <form [formGroup]="recipeForm" (ngSubmit)="onSubmit()" #form="ngForm">
+            <button type="submit" class="btn btn-success" [disabled]="!form.valid">Save Recipe</button>
+            <button type="button" class="btn btn-danger" (click)="onCancel()">Cancel Recipe</button>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-lg-12 col-xl-12">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input formControlName="name" type="text" id="name" name="name" class="form-control" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-lg-12 col-xl-12">
+                    <div class="form-group">
+                        <label for="imagePath">Image</label>
+                        <input formControlName="imagePath" type="text" name="imagePath" id="imagePath" class="form-control" />
+                    </div>
+                    <img [src]="recipeForm.value.imagePath" class="img-responsive" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-lg-12 col-xl-12">
+                    <div class="form-group">
+                        <label for="name">Description</label>
+                        <textarea formControlName="description" type="text" id="Description" rows="6" class="form-control"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-lg-12 col-xl-12" formArrayName="ingredients">
+                    <div class="form-group" *ngFor="let ingredientCtrl of ingredientControls; let i = index" [formGroupName]="i">
+                        <div class="row">
+                            <div class="col-xs-7 col-md-7 col-lg-7 col-xl-7">
+                                <input type="text" class="form-control" formControlName="name">
+                            </div>
+                            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
+                                <select
+                                    id="unit"
+                                    class="form-control"
+                                    name="unit"
+                                    formControlName="unit">
+                                    <option value="count">Count</option>
+                                    <option value="pounds">Pounds</option>
+                                    <option value="ounces">Ounces</option>
+                                    <option value="cups">Cups</option>
+                                    <option value="teaspoons">Teaspoons</option>
+                                    <option value="tablespoons">Tablespoons</option>
+                                </select>
+                            </div>
+                            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
+                                <input 
+                                    type="number" 
+                                    class="form-control"  
+                                    value="0.00"
+                                    step="0.25" 
+                                    formControlName="amount"
+                                >
+                            </div>
+                            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 col-xl-1">
+                                <button type="button" class="btn btn-danger" (click)="onDeleteIngredient(i)">X</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <button type="button" class="btn btn-success" (click)="onAddIngredient()">Add Ingredient</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
